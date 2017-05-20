@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <meta name="format-detection" content="telephone=no">
+        <!-- iOS私有属性 -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <!-- 启用360浏览器的极速模式(webkit) -->
+        <meta name="renderer" content="webkit">
+        <!-- 避免IE使用兼容模式 -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+        <meta name="HandheldFriendly" content="true">
+        <!-- 微软的老式浏览器 -->
+        <meta name="MobileOptimized" content="320">
+        <!-- uc强制竖屏 -->
+        <meta name="screen-orientation" content="portrait">
+        <!-- QQ强制竖屏 -->
+        <meta name="x5-orientation" content="portrait">
+        <!-- UC强制全屏 -->
+        <meta name="full-screen" content="yes">
+        <!-- QQ强制全屏 -->
+        <meta name="x5-fullscreen" content="true">
+        <!-- UC应用模式 -->
+        <meta name="browsermode" content="application">
+        <!-- QQ应用模式 -->
+        <meta name="x5-page-mode" content="app">
+        <!-- windows phone 点击无高光 -->
+        <meta name="msapplication-tap-highlight" content="no">
+
+        <title>enter your key</title>
+
+        <script src="./digital-input.js"></script>
+        <link href="./digital-input.css" rel="stylesheet">
+        
+        <script>
+
+            var addEvent = function (target, type, handler, useCapture) {
+                if ("\v" == "v") { // IE
+                    target.attachEvent('on' + type, handler);
+                } else {
+                    target.addEventListener(type, handler, !!useCapture);
+                }
+            };
+
+            window.onload = function () {
+                dinput('#inputBox_wrapper');
+            };
+        </script>
+        <style>
+            html, body {
+                height: 100%;
+            }
+
+            body {
+                padding: 0;
+                border: 0;
+                margin: 0;
+                font: 12px/1.5 tahoma, arial, \5b8b\4f53;
+            }
+
+            #inputBox_wrapper {
+                text-align: center;
+                padding: 32px 16px;
+            }
+
+            #pageLogger {
+                display: none;
+                position: fixed;
+                z-index: 100;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 256px;
+                overflow: auto;
+                color: #fff;
+                background-color: #000;
+                opacity: 0.6;
+                font-size: 1rem;
+                line-height: 1rem;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div id="inputBox_wrapper"></div>
+
+        <div id="pageLogger" style=""></div>
+
+    </body>
+</html>
