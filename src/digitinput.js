@@ -90,12 +90,12 @@ var dinput = function (sel, option, onComplete) {
                     var valid = ((code >= 48 && code <= 57) || code == 8);
 
                     DemoView.inputState = (code != 8);
-                    DemoView.log('keypress: ' + code);
                     return valid;
                 }, false);
                 
                 target.addEventListener('keydown', function (event) {
                     var code = (event.keyCode ? event.keyCode : event.which);
+                    DemoView.log('keypress: ' + code);
 
                     var valid = ((code >= 48 && code <= 57) || code == 8);
                     if (!valid) {
