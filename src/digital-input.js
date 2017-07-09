@@ -148,3 +148,11 @@ var dinput = function (sel, option, onComplete) {
     
     return DemoController.init(sel);
 };
+
+if (typeof exports !== 'undefined') {
+    if (typeof module !== 'undefined' && module.exports) {
+        exports = module.exports = dinput;
+    }
+} else {
+    window.digitinput = dinput;
+}
