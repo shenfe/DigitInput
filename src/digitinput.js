@@ -77,12 +77,12 @@ var dinput = function (sel, option, onComplete) {
             this.$ = function (sel) {
                 return $container.querySelectorAll(sel);
             };
-            DemoView.prepareDigitInputs(DemoConfig.digitKeyLength);
-            DemoView.bindEvents();
+            this.prepareDigitInputs(DemoConfig.digitKeyLength);
+            this.bindEvents();
         },
         bindEvents: function () {
-            for (var inputIndex in DemoView.digitInputs) {
-                var target = DemoView.digitInputs[inputIndex];
+            for (var inputIndex in this.digitInputs) {
+                var target = this.digitInputs[inputIndex];
 
                 target.addEventListener('keypress', function (event) {
                     var code = (event.keyCode ? event.keyCode : event.which);
@@ -128,10 +128,10 @@ var dinput = function (sel, option, onComplete) {
                 target.addEventListener('change', function (event) {
                     DemoView.log('onchange');
                 }, false);
-                target.addEventListener('input', DemoView.inputTextChangeHandler, false);
+                target.addEventListener('input', this.inputTextChangeHandler, false);
             }
 
-            this.$(DemoView.selectors.digitInputMask)[0].addEventListener('click', DemoView.inputMaskClickHandler, false);
+            this.$(this.selectors.digitInputMask)[0].addEventListener('click', this.inputMaskClickHandler, false);
         },
         inputTextChangeHandler: function (event) {
             var curKey = DemoView.getDigitKeyString();
@@ -156,8 +156,8 @@ var dinput = function (sel, option, onComplete) {
                 return;
             }
 
-            this.$(DemoView.selectors.digitInputTitle)[0].click();
-            this.$(DemoView.selectors.digitInputMask)[0].click();
+            DemoView.$(DemoView.selectors.digitInputTitle)[0].click();
+            DemoView.$(DemoView.selectors.digitInputMask)[0].click();
 
             window.setTimeout(function () {
                 DemoView.digitInputs[DemoView.curDigitInput].focus();
@@ -172,23 +172,23 @@ var dinput = function (sel, option, onComplete) {
         },
         getDigitKeyString: function () {
             var keyStr = '';
-            for (var i in DemoView.digitInputs) {
-                keyStr += DemoView.digitInputs[i].value;
+            for (var i in this.digitInputs) {
+                keyStr += this.digitInputs[i].value;
             }
             return keyStr;
         },
         checkKey: function (curKey) {
-            DemoController.checkKey(curKey || DemoView.getDigitKeyString());
+            DemoController.checkKey(curKey || this.getDigitKeyString());
         },
         prepareDigitInputs: function (keyLength) {
-            var $digitInputBox = this.$(DemoView.selectors.digitInputBox)[0];
+            var $digitInputBox = this.$(this.selectors.digitInputBox)[0];
             for (var i = 0; i < keyLength; i++) {
                 var $input = window.document.createElement('input');
                 $input.setAttribute('data-index', i.toString());
                 $input.setAttribute('type', 'tel');
                 $input.setAttribute('maxlength', '1');
                 $digitInputBox.appendChild($input);
-                DemoView.digitInputs[i] = $input;
+                this.digitInputs[i] = $input;
             }
         },
         log: function (text, force) {
