@@ -156,7 +156,6 @@ var dinput = function (sel, option, onComplete) {
                 return;
             }
 
-            DemoView.$(DemoView.selectors.digitInputTitle)[0].click();
             DemoView.$(DemoView.selectors.digitInputMask)[0].click();
 
             window.setTimeout(function () {
