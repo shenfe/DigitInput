@@ -30,7 +30,7 @@
         <!-- windows phone 点击无高光 -->
         <meta name="msapplication-tap-highlight" content="no">
 
-        <title>enter your key</title>
+        <title>Enter your key</title>
 
         <script src="./digital-input.js"></script>
         <link href="./digital-input.css" rel="stylesheet">
@@ -52,7 +52,10 @@
                 font: 12px/1.5 tahoma, arial, \5b8b\4f53;
             }
             
-            #inputBox_title {}
+            #title {
+                font-size: 2rem;
+                line-height: 4rem;
+            }
 
             #inputBox_wrapper {
                 text-align: center;
@@ -77,8 +80,8 @@
         </style>
     </head>
     <body>
-        <div id="inputBox_title"></div>
+        <div id="title"></div>
         <div id="inputBox_wrapper"></div>
-        <div id="pageLogger" style=""></div>
+        <div id="pageLogger"></div>
     </body>
 </html>
