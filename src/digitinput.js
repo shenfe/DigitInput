@@ -7,7 +7,7 @@ var dinput = function (sel, option, onComplete) {
     
     var cssFlag = 'fygniw3tuynwiyrugsn';
     if (!window[cssFlag]) {
-        window[cssFlag] = ture;
+        window[cssFlag] = true;
         var addCssRule = function (selectorString, styleString) {
             if (window.document.getElementsByTagName('style').length === 0) {
                 var tempStyle = window.document.createElement('style');
