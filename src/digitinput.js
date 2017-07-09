@@ -87,9 +87,9 @@ var dinput = function (sel, option, onComplete) {
                 target.addEventListener('keypress', function (event) {
                     var code = (event.keyCode ? event.keyCode : event.which);
 
-                    var valid = ((code >= 48 && code <= 57) || code === 8);
+                    var valid = ((code >= 48 && code <= 57) || code == 8);
 
-                    DemoView.inputState = (code !== 8);
+                    DemoView.inputState = (code != 8);
                     DemoView.log('keypress: ' + code);
                     return valid;
                 }, false);
@@ -97,13 +97,13 @@ var dinput = function (sel, option, onComplete) {
                 target.addEventListener('keydown', function (event) {
                     var code = (event.keyCode ? event.keyCode : event.which);
 
-                    var valid = ((code >= 48 && code <= 57) || code === 8);
+                    var valid = ((code >= 48 && code <= 57) || code == 8);
                     if (!valid) {
                         event.preventDefault();
                         return false;
                     }
 
-                    DemoView.inputState = (code !== 8);
+                    DemoView.inputState = (code != 8);
                     if (event, target.value === '' && DemoView.inputState === false) {
                         var curInputIndex = DemoView.curDigitInput;
                         if (curInputIndex > 0) curInputIndex--;
