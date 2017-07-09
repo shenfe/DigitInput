@@ -105,7 +105,7 @@ var dinput = function (sel, option, onComplete) {
                     }
 
                     DemoView.inputState = (code != 8);
-                    if (event, target.value === '' && DemoView.inputState === false) {
+                    if (event.target.value === '' && DemoView.inputState === false) {
                         var curInputIndex = DemoView.curDigitInput;
                         if (curInputIndex > 0) curInputIndex--;
                         DemoView.digitInputs[curInputIndex].focus();
