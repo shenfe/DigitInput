@@ -86,6 +86,7 @@ var dinput = function (sel, option, onComplete) {
 
                 target.addEventListener('keypress', function (event) {
                     var code = (event.keyCode ? event.keyCode : event.which);
+                    DemoView.log('keypress: ' + code);
 
                     var valid = ((code >= 48 && code <= 57) || code == 8);
 
@@ -95,7 +96,7 @@ var dinput = function (sel, option, onComplete) {
                 
                 target.addEventListener('keydown', function (event) {
                     var code = (event.keyCode ? event.keyCode : event.which);
-                    DemoView.log('keypress: ' + code);
+                    DemoView.log('keydown: ' + code);
 
                     var valid = ((code >= 48 && code <= 57) || code == 8);
                     if (!valid) {
@@ -113,6 +114,7 @@ var dinput = function (sel, option, onComplete) {
                 
                 target.addEventListener('keyup', function (event) {
                     var code = (event.keyCode ? event.keyCode : event.which);
+                    DemoView.log('keyup: ' + code);
                     DemoView.inputState = (code != 8);
                 }, false);
                 
