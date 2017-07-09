@@ -1,20 +1,82 @@
 var dinput = function (sel, option, onComplete) {
     option = option || {};
-    var $ = function (sel) { return document.querySelectorAll(sel); };
+    
     var DemoConfig = {
         digitKeyLength: option.lenSpec || 6
     };
+    
+    var cssFlag = 'fygniw3tuynwiyrugsn';
+    if (!window[cssFlag]) {
+        window[cssFlag] = ture;
+        var addCssRule = function (selectorString, styleString) {
+            if (window.document.getElementsByTagName('style').length === 0) {
+                var tempStyle = window.document.createElement('style');
+                tempStyle.setAttribute('type', 'text/css');
+                window.document.getElementsByTagName('head')[0].appendChild(tempStyle);
+            }
+            window.document.getElementsByTagName('style')[0].appendChild(window.document.createTextNode(selectorString + '{' + styleString + '}'));
+        };
+        addCssRule('.inputBox_inputs', `position: relative;`);
+        addCssRule('.inputBox_mask', `
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+        `);
+        addCssRule('.inputBox_inputs input', `
+            text-align: center;
+            border-top: 2px solid #ddd;
+            border-right: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+            border-left: 1px solid #ddd;
+            padding: 0;
+            margin: 0;
+            outline: none;
+
+            /*-webkit-user-select:none;*/
+            /*-moz-user-select: none;*/
+            /*-khtml-user-select: none;*/
+            /*-ms-user-select:none;*/
+            /*user-select: none;*/
+
+            color: transparent;
+            display: inline-block;
+            font-size: 2rem;
+            text-shadow: 0 0 0 gray;
+            width: 3.2rem;
+            height: 3.2rem;
+            line-height: 3.2rem;
+        `);
+        addCssRule('.inputBox_inputs input:focus', `
+            background-color: #ddd;
+            outline: none;
+        `);
+        addCssRule('.inputBox_inputs input:first-of-type', `
+            border-left: 2px solid #ddd;
+            border-radius: 8px 0 0 8px;
+        `);
+        addCssRule('.inputBox_inputs input:last-of-type', `
+            border-right: 2px solid #ddd;
+            border-radius: 0 8px 8px 0;
+        `);
+    }
 
     var DemoView = {
         digitInputs: [],
         curDigitInput: 0,
         inputState: true, // true: longer, false: shorter
         selectors: {
-            digitInputBox: '#inputBox_inputs',
-            digitInputs: '#inputBox_inputs input',
-            digitInputMask: '#inputBox_mask'
+            digitInputBox: '.inputBox_inputs',
+            digitInputs: '.inputBox_inputs input',
+            digitInputMask: '.inputBox_mask'
         },
-        init: function () {
+        init: function ($container) {
+            this.$container = $container;
+            this.$ = function (sel) {
+                return $container.querySelectorAll(sel);
+            };
             DemoView.prepareDigitInputs(DemoConfig.digitKeyLength);
             DemoView.bindEvents();
         },
@@ -31,6 +93,7 @@ var dinput = function (sel, option, onComplete) {
                     DemoView.log('keypress: ' + code);
                     return valid;
                 }, false);
+                
                 target.addEventListener('keydown', function (event) {
                     var code = (event.keyCode ? event.keyCode : event.which);
 
@@ -47,13 +110,16 @@ var dinput = function (sel, option, onComplete) {
                         DemoView.digitInputs[curInputIndex].focus();
                     }
                 }, false);
+                
                 target.addEventListener('keyup', function (event) {
                     var code = (event.keyCode ? event.keyCode : event.which);
                     DemoView.inputState = (code != 8);
                 }, false);
+                
                 target.addEventListener('paste', function (event) {
                     return false;
                 }, false);
+                
                 target.addEventListener('focus', function (event) {
                     DemoView.log('focus on: ' + event.target.getAttribute('data-index'), true);
                 }, false);
@@ -65,8 +131,7 @@ var dinput = function (sel, option, onComplete) {
                 target.addEventListener('input', DemoView.inputTextChangeHandler, false);
             }
 
-            var inputMask = $(DemoView.selectors.digitInputMask)[0];
-            inputMask.addEventListener('click', DemoView.inputMaskClickHandler, false);
+            this.$(DemoView.selectors.digitInputMask)[0].addEventListener('click', DemoView.inputMaskClickHandler, false);
         },
         inputTextChangeHandler: function (event) {
             var curKey = DemoView.getDigitKeyString();
@@ -75,7 +140,7 @@ var dinput = function (sel, option, onComplete) {
                 if (curInputIndex >= DemoConfig.digitKeyLength)
                     curInputIndex = DemoConfig.digitKeyLength - 1;
             } else {
-                //if(curInputIndex > 0) curInputIndex--;
+                // if(curInputIndex > 0) curInputIndex--;
             }
             DemoView.log('curInputState: ' + DemoView.inputState.toString());
             DemoView.log('curInputIndex: ' + curInputIndex.toString());
@@ -91,8 +156,8 @@ var dinput = function (sel, option, onComplete) {
                 return;
             }
 
-            $(DemoView.selectors.digitInputTitle)[0].click();
-            $(DemoView.selectors.digitInputMask)[0].click();
+            this.$(DemoView.selectors.digitInputTitle)[0].click();
+            this.$(DemoView.selectors.digitInputMask)[0].click();
 
             window.setTimeout(function () {
                 DemoView.digitInputs[DemoView.curDigitInput].focus();
@@ -116,9 +181,9 @@ var dinput = function (sel, option, onComplete) {
             DemoController.checkKey(curKey || DemoView.getDigitKeyString());
         },
         prepareDigitInputs: function (keyLength) {
-            var $digitInputBox = $(DemoView.selectors.digitInputBox)[0];
+            var $digitInputBox = this.$(DemoView.selectors.digitInputBox)[0];
             for (var i = 0; i < keyLength; i++) {
-                var $input = document.createElement('input');
+                var $input = window.document.createElement('input');
                 $input.setAttribute('data-index', i.toString());
                 $input.setAttribute('type', 'tel');
                 $input.setAttribute('maxlength', '1');
@@ -133,13 +198,13 @@ var dinput = function (sel, option, onComplete) {
 
     var DemoController = {
         init: function (selector) {
-            var $dom = (typeof selector === 'string') ? $(selector)[0] : selector;
+            var $dom = (typeof selector === 'string') ? window.document.querySelector(selector) : selector;
             $dom.innerHTML = `
-                <div id="inputBox_inputs">
-                    <div id="inputBox_mask"></div>
+                <div class="inputBox_inputs">
+                    <div class="inputBox_mask"></div>
                 </div>
             `;
-            DemoView.init();
+            DemoView.init($dom);
         },
         checkKey: function (curKey) {
             onComplete && onComplete(curKey);
