@@ -1,13 +1,3 @@
-#inputBox_title {
-    font-size: 2rem;
-    line-height: 4rem;
-}
-
-#inputBox_hint {
-    font-size: 1rem;
-    line-height: 2rem;
-}
-
 #inputBox_inputs {
     position: relative;
 }
