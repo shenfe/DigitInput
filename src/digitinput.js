@@ -88,9 +88,11 @@ var dinput = function (sel, option, onComplete) {
                     var code = (event.keyCode ? event.keyCode : event.which);
                     DemoView.log('keypress: ' + code);
 
-                    var valid = ((code >= 48 && code <= 57) || code == 8);
-
                     DemoView.inputState = (code != 8);
+                    var valid = ((code >= 48 && code <= 57) || code == 8);
+                    if (!valid) {
+                        event.preventDefault();
+                    }
                     return valid;
                 }, false);
                 
@@ -98,13 +100,13 @@ var dinput = function (sel, option, onComplete) {
                     var code = (event.keyCode ? event.keyCode : event.which);
                     DemoView.log('keydown: ' + code);
 
+                    DemoView.inputState = (code != 8);
                     var valid = ((code >= 48 && code <= 57) || code == 8);
                     if (!valid) {
                         event.preventDefault();
                         return false;
                     }
 
-                    DemoView.inputState = (code != 8);
                     if (event.target.value === '' && DemoView.inputState === false) {
                         var curInputIndex = DemoView.curDigitInput;
                         if (curInputIndex > 0) curInputIndex--;
@@ -115,7 +117,13 @@ var dinput = function (sel, option, onComplete) {
                 target.addEventListener('keyup', function (event) {
                     var code = (event.keyCode ? event.keyCode : event.which);
                     DemoView.log('keyup: ' + code);
+
                     DemoView.inputState = (code != 8);
+                    var valid = ((code >= 48 && code <= 57) || code == 8);
+                    if (!valid) {
+                        event.preventDefault();
+                    }
+                    return valid;
                 }, false);
                 
                 target.addEventListener('paste', function (event) {
