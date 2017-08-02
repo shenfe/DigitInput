@@ -1,5 +1,5 @@
 # DigitInput
-A pop UX design where users are required to input a digit string of a certain length.
+A lightweight digit-input component for mobile frontend, where users are required to input a length-specific digit string.
 
 ## Demo
 [Demo](http://shenfe.github.io/repos/DigitInput/demo.html)
