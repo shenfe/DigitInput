@@ -1,4 +1,4 @@
-var dinput = function (sel, option, onComplete) {
+var rand_947568462 = function (sel, option, onComplete) {
     option = option || {};
     
     var DemoConfig = {
@@ -225,8 +225,8 @@ var dinput = function (sel, option, onComplete) {
 
 if (typeof exports !== 'undefined') {
     if (typeof module !== 'undefined' && module.exports) {
-        exports = module.exports = dinput;
+        exports = module.exports = rand_947568462;
     }
 } else {
-    window.digitinput = dinput;
+    window.digitinput = rand_947568462;
 }
